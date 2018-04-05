@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="day01" namespace="/" extends="struts-default">
+        <!--namespace action = "a/login" a 命名空间  若无写/-->
+        <action name="login" class="com.JBB.tedu.action.LoginAction" method="login">
+            <!--class->发起的请求交给哪个类处理 -->
+            <!--mathod->处理请求的在class中的方法-->
+            <!--写上要跳转到的页面-->
+
+            <!--如果登录工号和密码正确-->
+            <result name="success">main/main.jsp</result>
+            <!--如果登录工号和密码错误-->
+            <result name="error">login.jsp</result>
+        </action>
+
+
+        <!-- ********************** 首页 ********************** -->
+        <!-- 主页面中查询上周期汇报未提交员工 -->
+        <action name="listwf" class="com.JBB.tedu.action.LoginAction" method="listwf">
+            <result name="success">main/mainRight.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+
+        <!-- 主页面中查询员工通讯录 -->
+        <action name="listu" class="com.JBB.tedu.action.LoginAction" method="findygtxl">
+            <result name="success">main/mainRight.jsp</result>
+        </action>
+
+        <!-- 主页面上超级管理员一键删除所有之前的未发汇报 -->
+        <action name="deleteAll" class="com.JBB.tedu.action.HuiBaoAction" method="deleteAll">
+            <result name="success">main/mainRight.jsp</result>
+        </action>
+
+
+        <!-- **********************  新建工作汇报页 ********************** -->
+        <action name="newhb" class="com.JBB.tedu.action.HuiBaoAction" method="newHB">
+            <result name="zb">zhoubao/xinjian.jsp</result>
+            <result name="yb">yuebao/xinjian.jsp</result>
+            <result name="nb">nianbao/xinjian.jsp</result>
+            <!--默认路径,和最后的return对应，无用-->
+            <result name="success">login.jsp</result>
+        </action>
+
+        <!--在新建页面下发送或保存汇报-->
+        <action name="sashb" class="com.JBB.tedu.action.HuiBaoAction" method="sashb">
+            <!--本周期汇报保存成功，跳转到提示页面-->
+            <result name="savesuccess">tips/savesuccess.jsp</result>
+            <!--本周期汇报发送成功，跳转到提示页面-->
+            <result name="sendsuccess">tips/sendsuccess.jsp</result>
+            <!--默认路径-->
+            <result name="success" type="dispatcher">tips/sendsuccess.jsp</result>
+        </action>
+
+
+        <!-- **********************  待发汇报列表页 **********************  -->
+        <action name="unsendhb" class="com.JBB.tedu.action.HuiBaoAction" method="newWF">
+            <result name="zb">zhoubao/daifalist.jsp</result>
+            <result name="yb">yuebao/daifalist.jsp</result>
+            <result name="nb">nianbao/daifalist.jsp</result>
+            <!--默认路径,和最后的return对应，无用-->
+            <result name="success"></result>
+        </action>
+
+        <!--待发汇报列表页面下的发送-->
+        <action name="toSendhb" class="com.JBB.tedu.action.HuiBaoAction" method="tosendhb">
+            <result name="sendsuccess">tips/sendsuccess.jsp</result>
+        </action>
+
+        <!--待发汇报列表页面下的编辑-->
+        <action name="edithb" class="com.JBB.tedu.action.HuiBaoAction" method="edithb">
+            <result name="zb">zhoubao/daifa.jsp</result>
+            <result name="yb">yuebao/daifa.jsp</result>
+            <result name="nb">nianbao/daifa.jsp</result>
+            <!--默认路径,和最后的return对应，无用-->
+            <result name="success"></result>
+        </action>
+
+        <!--待发汇报列表页面 -》编辑 -》发送或保存汇报-->
+        <action name="dfsendhb" class="com.JBB.tedu.action.HuiBaoAction" method="dfsendhb">
+            <!--本周期汇报保存成功，跳转到提示页面-->
+            <result name="savesuccess">tips/savesuccess.jsp</result>
+            <!--本周期汇报发送成功，跳转到提示页面-->
+            <result name="sendsuccess">tips/sendsuccess.jsp</result>
+            <!--默认路径-->
+            <result name="success" type="dispatcher">tips/sendsuccess.jsp</result>
+        </action>
+
+        <!--待发汇报列表页面下的删除-->
+        <action name="deletehb" class="com.JBB.tedu.action.HuiBaoAction" method="deletehb">
+            <result name="deletesuccess">tips/deletesucess.jsp</result>
+        </action>
+
+
+        <!-- **********************  已发汇报列表页 **********************  -->
+        <action name="havesenthb" class="com.JBB.tedu.action.HuiBaoAction" method="findSenthb">
+            <result name="zb">zhoubao/yifalist.jsp</result>
+            <result name="yb">yuebao/yifalist.jsp</result>
+            <result name="nb">nianbao/yifalist.jsp</result>
+            <!--和方法中默认return对应，无用-->
+            <result name="success"></result>
+        </action>
+
+
+        <!-- **********************  收件箱 **********************  -->
+        <!--左侧功能列表选择收件箱功能-->
+        <action name="Inbox" class="com.JBB.tedu.action.HuiBaoAction" method="inBox">
+            <result name="zb">zhoubao/shoujianxianglist.jsp</result>
+            <result name="yb">yuebao/shoujianxianglist.jsp</result>
+            <result name="nb">nianbao/shoujianxianglist.jsp</result>
+            <!--和方法中默认return对应，无用-->
+            <result name="success">login.jsp</result>
+        </action>
+
+        <!--收件箱的批复功能-->
+        <action name="reply" class="com.JBB.tedu.action.HuiBaoAction" method="reply">
+            <!-- 批复成功 -->
+            <result name="success"></result>
+        </action>
+
+        <!--管理员的收件箱-->
+        <action name="adminInbox" class="com.JBB.tedu.action.HuiBaoAction" method="adminInbox">
+            <!--跳转到管理员的收件箱页面-->
+            <result name="success">managersjxlist.jsp</result>
+        </action>
+
+
+        <!-- *******************退出系统******************* -->
+        <action name="exit" class="com.JBB.tedu.action.LoginAction" method="exit">
+            <result name="success">login.jsp</result>
+        </action>
+
+    </package>
+</struts>
